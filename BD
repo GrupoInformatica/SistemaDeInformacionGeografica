@@ -1,1 +1,96 @@
-Script Base de Datos
+---Script Base de Datos
+
+USE [Prueba]
+GO
+/****** Object:  Table [dbo].[Zona]    Script Date: 09/21/2013 13:45:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Zona](
+	[CodigoZona] [int] NOT NULL,
+	[NombreZona] [varchar](100) NOT NULL,
+	[Latitud] [varchar](10) NOT NULL,
+	[Longitud] [varchar](11) NOT NULL,
+ CONSTRAINT [PK_Zona] PRIMARY KEY CLUSTERED 
+(
+	[CodigoZona] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[TipoEvento]    Script Date: 09/21/2013 13:45:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[TipoEvento](
+	[CodigoTipoEvento] [int] NOT NULL,
+	[DescripcionTipoEvento] [varchar](100) NOT NULL,
+ CONSTRAINT [PK_TipoEvento] PRIMARY KEY CLUSTERED 
+(
+	[CodigoTipoEvento] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Hora]    Script Date: 09/21/2013 13:45:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Hora](
+	[CodigoHora] [int] NOT NULL,
+	[DescripcionHora] [char](8) NOT NULL,
+ CONSTRAINT [PK_Hora] PRIMARY KEY CLUSTERED 
+(
+	[CodigoHora] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Evento]    Script Date: 09/21/2013 13:45:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Evento](
+	[CodigoEvento] [int] NOT NULL,
+	[TituloEvento] [varchar](50) NOT NULL,
+	[FechaEvento] [date] NOT NULL,
+	[CodigoHora] [int] NOT NULL,
+	[DescripcionEvento] [varchar](255) NOT NULL,
+	[CodigoTipoEvento] [int] NOT NULL,
+	[Latitud] [varchar](10) NOT NULL,
+	[Longitud] [varchar](11) NOT NULL,
+ CONSTRAINT [PK_Evento] PRIMARY KEY CLUSTERED 
+(
+	[CodigoEvento] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  ForeignKey [FK_Evento_Hora]    Script Date: 09/21/2013 13:45:35 ******/
+ALTER TABLE [dbo].[Evento]  WITH CHECK ADD  CONSTRAINT [FK_Evento_Hora] FOREIGN KEY([CodigoHora])
+REFERENCES [dbo].[Hora] ([CodigoHora])
+GO
+ALTER TABLE [dbo].[Evento] CHECK CONSTRAINT [FK_Evento_Hora]
+GO
+/****** Object:  ForeignKey [FK_Evento_TipoEvento]    Script Date: 09/21/2013 13:45:35 ******/
+ALTER TABLE [dbo].[Evento]  WITH CHECK ADD  CONSTRAINT [FK_Evento_TipoEvento] FOREIGN KEY([CodigoTipoEvento])
+REFERENCES [dbo].[TipoEvento] ([CodigoTipoEvento])
+GO
+ALTER TABLE [dbo].[Evento] CHECK CONSTRAINT [FK_Evento_TipoEvento]
+GO
